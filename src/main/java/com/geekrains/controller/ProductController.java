@@ -13,6 +13,7 @@ import com.geekrains.repository.ProductRepository;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
@@ -25,7 +26,7 @@ public class ProductController {
 
 	@Autowired
 	ProductService productService;
-/*
+
 	@GetMapping("/check")
 	@ResponseBody
 	public String checkDB(){
@@ -48,7 +49,59 @@ public class ProductController {
 		return "check";
 	}
 
- */
+	@GetMapping("/filteredProductsPage")
+	public String filterProductsPage(Model model){
+		String type = "";
+		double value = 0;
+		model.addAttribute("type", type);
+		model.addAttribute("value", value);
+		return "filteredProductsPage";
+	}
+
+	@PostMapping("/filteredProductsPage")
+	public String filterProductsPage(@RequestParam("type") String type,@RequestParam("value") double value,Model model) {
+		if(type.equals("min")){
+			model.addAttribute("productsList",productRepository.findAll().stream().filter(p->p.getCost() < value).collect(Collectors.toList()));
+		}else if(type.equals("max")){
+			model.addAttribute("productsList",productRepository.findAll().stream().filter(p->p.getCost() > value).collect(Collectors.toList()));
+		}
+		return "filteredProductsPage";
+	}
+
+	@GetMapping("/deleteProductByIdPage")
+	public String deleteProductById(Model model){
+		int id = 0;
+		model.addAttribute("id", id);
+		return "deleteProductByIdPage";
+	}
+
+	@PostMapping("/deleteProductByIdPage")
+	@ResponseBody
+	public String deleteProductById(@RequestParam("id") int id) {
+		if (!productRepository.findById(id).isPresent()){
+			return "Failure";
+		}else {
+			productRepository.deleteById(id);
+			return "Product with id : " + id + " deleted";
+		}
+	}
+
+	@GetMapping("/findProductByIdPage")
+	public String findProductById(Model model){
+		int id = 0;
+		model.addAttribute("id", id);
+		return "findProductByIdPage";
+	}
+
+	@PostMapping("/findProductByIdPage")
+	@ResponseBody
+	public String findProductById(@RequestParam("id") int id) {
+		if (!productRepository.findById(id).isPresent()){
+			return "Failure";
+		}else {
+			return productRepository.findById(id).get().toString();
+		}
+	}
 
 	@GetMapping("/checkProductsOfCustomer{id}")
 	@ResponseBody
@@ -62,7 +115,6 @@ public class ProductController {
 		return productService.findCustomersOfProduct(id);
 	}
 
-/*
 	@GetMapping("/seeAllProductsPage/{id}")
 	@ResponseBody
 	public Optional<Product> getProduct(@PathVariable int id) {
@@ -84,7 +136,7 @@ public class ProductController {
 
 	@PostMapping("/addProductPage")
 	@ResponseBody
-	public String submitForm(@ModelAttribute("product") Product product) {
+	public String addProduct(@ModelAttribute("product") Product product) {
 		if (productRepository.findById(product.getId()).isPresent()){
 			return "Failure";
 		}
@@ -92,5 +144,4 @@ public class ProductController {
 		return product.toString() + " added sucessfully";
 	}
 
- */
 }
