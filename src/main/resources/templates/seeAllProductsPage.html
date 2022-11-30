@@ -18,6 +18,11 @@
         <td>
             <a th:href="@{http://localhost:8080/seeAllProductsPage/{id}(id = ${p.getId()})}">Link</a>
         </td>
+        <td>
+            <a th:href="@{http://localhost:8080/deleteProduct/{id}(id = ${p.getId()})}">
+                <button>delete</button>
+            </a>
+        </td>
     </tr>
 </table>
 <form action="/filteredProductsPage" method="post" id="form">

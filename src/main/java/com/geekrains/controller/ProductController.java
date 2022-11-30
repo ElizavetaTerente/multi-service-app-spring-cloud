@@ -144,4 +144,13 @@ public class ProductController {
 		return product.toString() + " added sucessfully";
 	}
 
+	@GetMapping("/deleteProduct/{id}")
+	public String deleteProductByIdFromAllProductsView(@PathVariable int id, Model model) {
+
+		productRepository.deleteById(id);
+		model.addAttribute("productsList",productRepository.findAll());
+
+		return "seeAllProductsPage";
+	}
+
 }
