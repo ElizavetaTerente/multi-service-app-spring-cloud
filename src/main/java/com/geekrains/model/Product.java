@@ -11,12 +11,13 @@ import java.util.Set;
 public class Product {
 
 	@Id
-	@Column(name = "id")
-	private int id;
 	@Column(name = "title")
 	private String title;
+
 	@Column(name = "cost")
 	private Double cost;
+
+	/*
 	@ManyToMany
 	@JoinTable(
 			name = "customers_products",
@@ -26,22 +27,15 @@ public class Product {
 	private Set<Customer> productCustomers;
 
 
+
+	 */
 	public Product() {
 	}
 
-	public Product(int id, String title, Double cost) {
-		this.id = id;
+	public Product(String title, Double cost) {
 		this.title = title;
 		this.cost = cost;
-		this.productCustomers = Collections.<Customer>emptySet();  ;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	//	this.productCustomers = Collections.<Customer>emptySet();  ;
 	}
 
 	public String getTitle() {
@@ -59,7 +53,7 @@ public class Product {
 	public void setCost(Double cost) {
 		this.cost = cost;
 	}
-
+/*
 	public Set<Customer> getProductCustomers() {
 		return productCustomers;
 	}
@@ -68,10 +62,11 @@ public class Product {
 		this.productCustomers = productCustomers;
 	}
 
+ */
+
 	@Override
 	public String toString() {
 		return "Product{" +
-				"id=" + id +
 				", title='" + title + '\'' +
 				", cost=" + cost +
 				'}';

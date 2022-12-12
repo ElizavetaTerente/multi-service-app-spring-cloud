@@ -1,5 +1,5 @@
 package com.geekrains.model;
-
+/*
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,3 +64,5 @@ public class Customer {
                 '}';
     }
 }
+
+ */
