@@ -4,6 +4,7 @@ import com.geekrains.model.Role;
 import com.geekrains.model.User;
 import com.geekrains.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,6 +39,11 @@ public class UserService implements UserDetailsService {
         }else{
             return null;
         }
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<User> findAll(){
+        return userRepository.findAll();
     }
 
     @Override

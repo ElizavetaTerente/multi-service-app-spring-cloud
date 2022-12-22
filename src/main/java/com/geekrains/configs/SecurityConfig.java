@@ -1,4 +1,4 @@
-package com.geekrains.configs;
+/*package com.geekrains.configs;
 import com.geekrains.model.User;
 import com.geekrains.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -65,4 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 }
+
+ */
 
