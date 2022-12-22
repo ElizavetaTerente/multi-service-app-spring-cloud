@@ -17,18 +17,6 @@ public class Product {
 	@Column(name = "cost")
 	private Double cost;
 
-	/*
-	@ManyToMany
-	@JoinTable(
-			name = "customers_products",
-			joinColumns = @JoinColumn(name = "product_id"),
-			inverseJoinColumns = @JoinColumn(name = "customer_id")
-	)
-	private Set<Customer> productCustomers;
-
-
-
-	 */
 	public Product() {
 	}
 

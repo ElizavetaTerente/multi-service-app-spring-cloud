@@ -2,6 +2,7 @@ package com.geekrains.service;
 
 import com.geekrains.model.CartItem;
 import com.geekrains.model.Product;
+import com.geekrains.model.User;
 import com.geekrains.repository.CartItemRepository;
 import com.geekrains.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,16 @@ public class CartItemService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    UserService userService;
+
     public void saveOrUpdate(String productName){
         if(cartItemRepository.existsById(productName)){
             int currentQuantity = cartItemRepository.findById(productName).get().getQuantity();
             cartItemRepository.updateQuantity(currentQuantity+1,productName);
         }else{
             Product product = productRepository.findById(productName).get();
-            cartItemRepository.save(new CartItem(product.getTitle(),1));
+            cartItemRepository.save(new CartItem(product.getTitle(),1,userService.findAuthenticatedUser()));
         }
     }
 

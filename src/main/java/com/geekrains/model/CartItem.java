@@ -2,6 +2,7 @@ package com.geekrains.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cart")
@@ -13,12 +14,18 @@ public class CartItem implements Serializable {
     @Column
     private int quantity;
 
+    @ManyToOne
+    @JoinColumn(name="user_name", nullable=false)
+    private User user;
+
+
     public CartItem() {
     }
 
-    public CartItem(String productName, int quantity) {
+    public CartItem(String productName, int quantity, User user) {
         this.productName = productName;
         this.quantity = quantity;
+        this.user = user;
     }
 
     public String getProductName() {
@@ -43,5 +50,18 @@ public class CartItem implements Serializable {
                 "productName='" + productName + '\'' +
                 ", quantity=" + quantity +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CartItem cartItem = (CartItem) o;
+        return Objects.equals(productName, cartItem.productName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productName);
     }
 }

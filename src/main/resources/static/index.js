@@ -1,4 +1,5 @@
 angular.module('app',[]).controller('productsController',function ($scope,$http) {
+
     const contextPath = 'http://localhost:8080';
 
     //return all data
@@ -56,6 +57,7 @@ angular.module('app',[]).controller('productsController',function ($scope,$http)
                 $scope.loadCart();
             });
     }
+
 
     $scope.loadProducts();
     $scope.loadCart();
