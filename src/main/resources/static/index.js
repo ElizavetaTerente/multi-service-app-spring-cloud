@@ -58,10 +58,6 @@ angular.module('app',[]).controller('productsController',function ($scope,$http)
             });
     }
 
-    $scope.deleteItemFromCart = function(name){
-        var name=document.getElementById("name_row"+no);
-    }
-
     $scope.loadProducts();
     $scope.loadCart();
 });

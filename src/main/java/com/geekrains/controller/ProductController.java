@@ -102,14 +102,5 @@ public class ProductController {
 		return userService.findByUsername(name).get().getRoles();
 	}
 
-	/*
-	@GetMapping("/checkRoles")
-	public Collection<? extends GrantedAuthority> getRole(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(userService.loadUserByUsername(auth.getName()).getAuthorities());
-		return userService.loadUserByUsername(auth.getName()).getAuthorities();
-	}
-
-	 */
 
 }
