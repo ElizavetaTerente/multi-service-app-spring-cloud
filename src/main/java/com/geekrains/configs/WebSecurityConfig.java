@@ -52,17 +52,6 @@ public class WebSecurityConfig {
                 .successHandler(loginSuccessHandler);
         return http.build();
     }
-/*
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        //Configure roles and passwords via datasource
-        auth.jdbcAuthentication()
-                .usersByUsernameQuery("select userName, password from users where userName=?")
-                .authoritiesByUsernameQuery("select userx_username, roles from userx_userx_role where userx_username=?")
-                .passwordEncoder(passwordEncoder());
-    }
-
- */
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){

@@ -45,14 +45,14 @@ angular.module('app',[]).controller('productsController',function ($scope,$http)
     //operations with cart items
 
     $scope.addToCart = function(title){
-        $http.post(contextPath + '/products/addToCart/' + title)
+        $http.post(contextPath + '/products/' + title)
             .then(function (response){
                 $scope.loadCart();
             });
     }
 
     $scope.deleteItemFromCart = function(name){
-        $http.delete(contextPath + '/products/deleteFromCart/' + name)
+        $http.delete(contextPath + '/products/' + name)
             .then(function (response){
                 $scope.loadCart();
             });

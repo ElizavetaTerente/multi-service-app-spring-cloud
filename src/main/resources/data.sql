@@ -31,5 +31,3 @@ insert into users values ('manager', '$2a$10$P6aWpRZYESDlkl1Zw24QIeu4jJMYhvW.pCH
 insert into user_role (user_name, roles) values ('manager', 'MANAGER')
 insert into users values ('admin', '$2a$10$P6aWpRZYESDlkl1Zw24QIeu4jJMYhvW.pCHK8r2y/XD3G9uw6.lni')
 insert into user_role (user_name, roles) values ('admin', 'ADMIN')
-insert into users values ('super_admin', '$2a$10$P6aWpRZYESDlkl1Zw24QIeu4jJMYhvW.pCHK8r2y/XD3G9uw6.lni')
-insert into user_role (user_name, roles) values ('super_admin', 'SUPER_ADMIN')

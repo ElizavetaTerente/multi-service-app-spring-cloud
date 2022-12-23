@@ -45,14 +45,6 @@ public class ProductController {
 	UserService userService;
 
 	//return all data
-
-//	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping("/admin/allUsersPage")
-	public ModelAndView allUsersPage(){
-		return new ModelAndView("allUsersPage");
-	}
-
-//	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/admin/users")
 	public List<User> allUserList(){
 		return userService.findAll();
@@ -83,23 +75,14 @@ public class ProductController {
 
 	//operations with cart items
 
-	@PostMapping("/products/addToCart/{name}")
+	@PostMapping("/products/{name}")
 	public void addProductToCart(@PathVariable String name){
 		cartItemService.saveOrUpdate(name);
 	}
 
-	@DeleteMapping("/products/deleteFromCart/{name}")
+	@DeleteMapping("/products/{name}")
 	public void deleteProductFromCart(@PathVariable String name){
 		cartItemService.delete(name);
-	}
-
-	//get role
-
-	@GetMapping("/checkRoles")
-	public Set<Role> getRole(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		return userService.findByUsername(name).get().getRoles();
 	}
 
 
