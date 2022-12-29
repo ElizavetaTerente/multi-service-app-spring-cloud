@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -32,5 +33,14 @@ public class ProductService {
 
     public void delete(String title){
         productRepository.deleteById(title);
+    }
+
+    public Product findByName(String title){
+        Optional<Product> product = productRepository.findById(title);
+        if(product.isPresent()){
+            return product.get();
+        }else{
+            throw new IllegalArgumentException("product doesnt exist!");
+        }
     }
 }

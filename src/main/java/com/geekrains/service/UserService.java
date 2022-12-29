@@ -54,16 +54,10 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),user.getAuthorities());
     }
 
-
-
     public String returnHighestRole(String username){
         Set<Role> roles =  userRepository.findById(username).get().getRoles();
-        if(roles.contains(Role.SUPER_ADMIN)){
-            return "super_admin";
-        }else if(roles.contains(Role.ADMIN)){
+        if(roles.contains(Role.ADMIN)){
             return "admin";
-        }else if(roles.contains(Role.MANAGER)){
-            return "manager";
         }else{
             return "user";
         }

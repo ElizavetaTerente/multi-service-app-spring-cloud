@@ -17,7 +17,7 @@ public class CartItemService {
     CartItemRepository cartItemRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    ProductService productService;
 
     @Autowired
     UserService userService;
@@ -27,13 +27,21 @@ public class CartItemService {
             int currentQuantity = cartItemRepository.findById(productName).get().getQuantity();
             cartItemRepository.updateQuantity(currentQuantity+1,productName);
         }else{
-            Product product = productRepository.findById(productName).get();
+            Product product = productService.findByName(productName);
             cartItemRepository.save(new CartItem(product.getTitle(),1,userService.findAuthenticatedUser()));
         }
     }
 
     public List<CartItem> getAllCartItems(){
         return cartItemRepository.findAll();
+    }
+
+    public List<CartItem> getAllCartItemOfUser(User user){
+        return cartItemRepository.findAllCartItemOfUser(user);
+    }
+
+    public void cleanCart(){
+        cartItemRepository.deleteAll();
     }
 
     public void delete(String productName){

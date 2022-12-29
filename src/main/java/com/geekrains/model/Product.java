@@ -23,7 +23,6 @@ public class Product {
 	public Product(String title, Double cost) {
 		this.title = title;
 		this.cost = cost;
-	//	this.productCustomers = Collections.<Customer>emptySet();  ;
 	}
 
 	public String getTitle() {
@@ -41,16 +40,6 @@ public class Product {
 	public void setCost(Double cost) {
 		this.cost = cost;
 	}
-/*
-	public Set<Customer> getProductCustomers() {
-		return productCustomers;
-	}
-
-	public void setProductCustomers(Set<Customer> productCustomers) {
-		this.productCustomers = productCustomers;
-	}
-
- */
 
 	@Override
 	public String toString() {

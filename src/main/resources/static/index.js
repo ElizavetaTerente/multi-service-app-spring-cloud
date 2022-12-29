@@ -45,17 +45,25 @@ angular.module('app',[]).controller('productsController',function ($scope,$http)
     //operations with cart items
 
     $scope.addToCart = function(title){
-        $http.post(contextPath + '/products/' + title)
+        $http.post(contextPath + '/cart/' + title)
             .then(function (response){
                 $scope.loadCart();
             });
     }
 
-    $scope.deleteItemFromCart = function(name){
-        $http.delete(contextPath + '/products/' + name)
+    $scope.deleteItemFromCart = function(title){
+        $http.delete(contextPath + '/cart/' + title)
             .then(function (response){
                 $scope.loadCart();
             });
+    }
+
+    $scope.placeOrder = function(){
+        $http.post(contextPath + '/placeOrder')
+            .then(function (response){
+                $scope.loadCart();
+            });
+        document.documentElement.scrollTop = 0;
     }
 
     $scope.loadProducts();

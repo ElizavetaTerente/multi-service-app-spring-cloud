@@ -1,14 +1,12 @@
 package com.geekrains.controller;
 
 //import com.geekrains.model.Customer;
-import com.geekrains.model.CartItem;
-import com.geekrains.model.Product;
+import com.geekrains.model.*;
 //import com.geekrains.repository.CustomerRepository;
-import com.geekrains.model.Role;
-import com.geekrains.model.User;
 import com.geekrains.repository.CartItemRepository;
 import com.geekrains.repository.UserRepository;
 import com.geekrains.service.CartItemService;
+import com.geekrains.service.OrderService;
 import com.geekrains.service.ProductService;
 import com.geekrains.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,44 +21,19 @@ import org.springframework.web.bind.annotation.*;
 import com.geekrains.repository.ProductRepository;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class ProductController {
 
 	@Autowired
-	CartItemService cartItemService;
-
-	@Autowired
 	ProductService productService;
 
-
-	@Autowired
-	UserRepository userRepository;
-
-	@Autowired
-	UserService userService;
-
-	//return all data
-	@GetMapping("/admin/users")
-	public List<User> allUserList(){
-		return userService.findAll();
-	}
 
 	@GetMapping("/products")
 	public List<Product> allProductsList(){
 		return productService.getAllProducts();
 	}
-
-	@GetMapping("/cart")
-	public List<CartItem> allCartItemsList(){
-		return cartItemService.getAllCartItems();
-	}
-
-	//operations with products
 
 	@PostMapping("/products/addNew/{title}/{cost}")
 	public void addNewProduct(@PathVariable String title, @PathVariable double cost){
@@ -71,19 +44,5 @@ public class ProductController {
 	public void deleteProduct(@PathVariable String title){
 		productService.delete(title);
 	}
-
-
-	//operations with cart items
-
-	@PostMapping("/products/{name}")
-	public void addProductToCart(@PathVariable String name){
-		cartItemService.saveOrUpdate(name);
-	}
-
-	@DeleteMapping("/products/{name}")
-	public void deleteProductFromCart(@PathVariable String name){
-		cartItemService.delete(name);
-	}
-
 
 }

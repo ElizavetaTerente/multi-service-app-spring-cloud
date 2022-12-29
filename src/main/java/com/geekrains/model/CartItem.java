@@ -3,6 +3,7 @@ package com.geekrains.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "cart")
@@ -17,7 +18,6 @@ public class CartItem implements Serializable {
     @ManyToOne
     @JoinColumn(name="user_name", nullable=false)
     private User user;
-
 
     public CartItem() {
     }

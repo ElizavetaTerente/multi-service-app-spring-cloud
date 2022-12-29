@@ -1,5 +1,6 @@
 package com.geekrains.model;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
-public class User/* implements UserDetails */ {
+public class User{
     @Id
     @Column
     private String userName;
@@ -28,54 +29,35 @@ public class User/* implements UserDetails */ {
     @OneToMany(mappedBy = "user")
     private Set<CartItem> cartItems;
 
-    //for UserDetails
-/*
-    private boolean isAccountNonExpired = true;
-    private boolean isAccountNonLocked = true;
-    private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = true;
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
 
- */
-
+    @Column
+    private String name;
+    @Column
+    private String surname;
+    @Column
+    private String adress;
+    @Column
+    private String phoneNumber;
+    @Column
+    private String email;
 
 
     public User() {
     }
 
-    public User(String userName, String password, Set<Role> roles, Set<CartItem> cartItems) {
+    public User(String userName, String password, Set<Role> roles, Set<CartItem> cartItems, String name, String surname, String adress, String phoneNumber, String email) {
         this.userName = userName;
         this.password = password;
         this.roles = roles;
         this.cartItems = cartItems;
+        this.name = name;
+        this.surname = surname;
+        this.adress = adress;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
-
-    //for UserDteials:
-/*
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-      //  return isAccountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-      //  return isAccountNonLocked;
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-       // return isCredentialsNonExpired;
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-      //  return isEnabled;
-        return true;
-    }
-
- */
 
     public List<? extends GrantedAuthority> getAuthorities(){
          return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
@@ -84,8 +66,6 @@ public class User/* implements UserDetails */ {
     public String getUsername(){
         return userName;
     }
-
-    //
 
     public String getUserName() {
         return userName;
@@ -129,6 +109,46 @@ public class User/* implements UserDetails */ {
         }
 
         return false;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 
