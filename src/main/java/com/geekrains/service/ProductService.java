@@ -1,6 +1,7 @@
 package com.geekrains.service;
 
 //import com.geekrains.repository.CustomerRepository;
+import com.geekrains.Logging.LogExecutionTime;
 import com.geekrains.exceptions.AddNewProductException;
 import com.geekrains.model.Product;
 import com.geekrains.repository.ProductRepository;
@@ -19,10 +20,12 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    @LogExecutionTime
     public List<Product> getAllProducts(){
         return productRepository.findAll();
     }
 
+    @LogExecutionTime
     public void saveOrUpdate(String title,double cost) {
         if(cost <= 0){throw new AddNewProductException("price cannot be less than or equals 0");
         }else if(productRepository.existsById(title)){
@@ -30,11 +33,12 @@ public class ProductService {
         }
         productRepository.save(new Product(title, cost));
     }
-
+    @LogExecutionTime
     public void delete(String title){
         productRepository.deleteById(title);
     }
 
+    @LogExecutionTime
     public Product findByName(String title){
         Optional<Product> product = productRepository.findById(title);
         if(product.isPresent()){

@@ -1,5 +1,6 @@
 package com.geekrains.service;
 
+import com.geekrains.Logging.LogExecutionTime;
 import com.geekrains.model.*;
 import com.geekrains.repository.OrderRepository;
 import com.geekrains.repository.ProductRepository;
@@ -28,6 +29,7 @@ public class OrderService {
     @Autowired
     ProductService productService;
 
+    @LogExecutionTime
     public void placeOrder() {
         User user = userService.findAuthenticatedUser();
         String deliveryAddress = user.getAdress();
@@ -53,11 +55,13 @@ public class OrderService {
         cartItemService.cleanCart();
     }
 
+    @LogExecutionTime
     public Set<Order> findOrdersOfUser(){
         User user = userService.findAuthenticatedUser();
         return orderRepository.findAllOrdersOfUser(user);
     }
 
+    @LogExecutionTime
     public Order findOrderById(Long id){
         Optional<Order> order = orderRepository.findById(id);
         if(order.isPresent()){
@@ -67,6 +71,7 @@ public class OrderService {
         }
     }
 
+    @LogExecutionTime
     public List<Order> findAll(){
         return orderRepository.findAll();
     }

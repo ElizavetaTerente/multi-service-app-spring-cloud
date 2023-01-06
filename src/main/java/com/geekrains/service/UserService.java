@@ -1,5 +1,6 @@
 package com.geekrains.service;
 
+import com.geekrains.Logging.LogExecutionTime;
 import com.geekrains.model.Role;
 import com.geekrains.model.User;
 import com.geekrains.repository.UserRepository;
@@ -27,10 +28,12 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @LogExecutionTime
     public Optional<User> findByUsername(String username){
         return userRepository.findById(username);
     }
 
+    @LogExecutionTime
     public User findAuthenticatedUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> maybeUser = userRepository.findById(auth.getName());
@@ -41,11 +44,13 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    @LogExecutionTime
     @PreAuthorize("hasAuthority('ADMIN')")
     public List<User> findAll(){
         return userRepository.findAll();
     }
 
+    @LogExecutionTime
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -54,6 +59,7 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),user.getAuthorities());
     }
 
+    @LogExecutionTime
     public String returnHighestRole(String username){
         Set<Role> roles =  userRepository.findById(username).get().getRoles();
         if(roles.contains(Role.ADMIN)){

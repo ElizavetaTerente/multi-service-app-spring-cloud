@@ -1,5 +1,6 @@
 package com.geekrains.service;
 
+import com.geekrains.Logging.LogExecutionTime;
 import com.geekrains.model.CartItem;
 import com.geekrains.model.Product;
 import com.geekrains.model.User;
@@ -22,6 +23,7 @@ public class CartItemService {
     @Autowired
     UserService userService;
 
+    @LogExecutionTime
     public void saveOrUpdate(String productName){
         if(cartItemRepository.existsById(productName)){
             int currentQuantity = cartItemRepository.findById(productName).get().getQuantity();
@@ -32,18 +34,22 @@ public class CartItemService {
         }
     }
 
+    @LogExecutionTime
     public List<CartItem> getAllCartItems(){
         return cartItemRepository.findAll();
     }
 
+    @LogExecutionTime
     public List<CartItem> getAllCartItemOfUser(User user){
         return cartItemRepository.findAllCartItemOfUser(user);
     }
 
+    @LogExecutionTime
     public void cleanCart(){
         cartItemRepository.deleteAll();
     }
 
+    @LogExecutionTime
     public void delete(String productName){
         cartItemRepository.deleteById(productName);
     }
