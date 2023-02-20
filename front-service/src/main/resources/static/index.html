@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+    <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container" data-ng-controller ="productsController">
+
+<div id = "login" style="display: inline-block;">
+    <form ng-submit="AuthOrSigUp(buttonType)" class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="username" class="sr-only">Username</label>
+            <input type="username" class="form-control" id="username" placeholder="Username" ng-model="user.username" required>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password" required>
+        </div>
+        <button type="submit" class="btn btn-outline-warning ml-2" ng-click ="AuthOrSigUp('Auth')">Log in</button>
+        <button id = "signUpButton" type="button" class="btn btn-outline-warning ml-2" ng-click ="AuthOrSigUp('SignUp')">Sign up</button>
+    </form>
+</div>
+    <div id = "logout" style="display: inline-block;float:right">
+        <button ng-click="tryToLogout()" class="btn btn-outline-warning ml-2">Log out</button>
+    </div>
+
+<div>
+    <p1 id = "loginInfo" style = "color: darkorange;float:right">[U are not logged in]</p1>
+</div>
+    <h1>Product table:</h1>
+    <div>
+        <p>
+            <button id = "addButton" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                add new product
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <form novalidate ng-submit="addNewProduct()">
+                <div class="mb-3">
+                    <label for="productTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="productTitle" ng-model="newProduct.title">
+                </div>
+                <div class="mb-3">
+                    <label for="productCost" class="form-label">Cost</label>
+                    <input type="double" class="form-control" id="productCost" ng-model="newProduct.cost">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Cost</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat = "p in productsList">
+            <td>{{p.title}}</td>
+            <td>{{p.cost}}</td>
+            <td><button type="button" class="btn btn-outline-danger" ng-click="addToCart(p.title)">add to cart</button></td>
+            <td><button ng-hide="!isAdmin" type="button" class="btn btn-outline-danger" ng-click="deleteProduct(p.title)">delete</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h1>Cart:</h1>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat = "c in cartItems">
+            <td>{{c.title}}</td>
+            <td><button style="margin-right: 10px" type="button" class="btn btn-outline-danger" ng-click="changeQuantity(c.title,-1)">-</button>{{ c.quantity }}<button style="margin-left: 10px" type="button" class="btn btn-outline-danger" ng-click="changeQuantity(c.title,1)">+</button></td>
+            <td><button type="button" class="btn btn-outline-danger" ng-click="deleteItem(c.title)">delete</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

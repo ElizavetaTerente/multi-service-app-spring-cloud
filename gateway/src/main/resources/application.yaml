@@ -1,0 +1,42 @@
+server:
+  port: 5555
+
+  spring:
+    application:
+      name: gateway
+    cloud:
+      gateway:
+        globalcors:
+          corsConfigurations:
+            '[/**]':
+              allowedOrigins: "http://localhost:3000"
+              allowedMethods:
+                - GET
+                - POST
+              allowedHeaders: "*"
+        routes:
+          - id: product-service
+            uri: http://localhost:8090
+            predicates:
+              - Path=/products/**
+            filters:
+              - JwtAuthFilter
+          - id: cart-service
+            uri: http://localhost:9000
+            predicates:
+              - Path=/cart/**
+            filters:
+              - JwtAuthFilter
+          - id: auth-service
+            uri: http://localhost:8060
+            predicates:
+              - Path=/auth/**
+            filters:
+              - StripPrefix=1
+              - JwtAuthFilter
+
+security:
+  jwt:
+    secret: "elizaveta"
+    lifetime: "36000000"
+

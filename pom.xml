@@ -5,19 +5,20 @@
 	    <packaging>pom</packaging>
 
 	    <modules>
-            <module>dto</module>
             <module>product-service</module>
-            <module>product-presentation-service</module>
+            <module>front-service</module>
+            <module>gateway</module>
+            <module>cart-service</module>
+            <module>auth-service</module>
         </modules>
 
         	<groupId>com.geekbrains</groupId>
-        	<artifactId>lesson8</artifactId>
+        	<artifactId>finalProject</artifactId>
         	<version>0.0.1-SNAPSHOT</version>
-        	<name>lesson8</name>
+        	<name>finalProject</name>
         	<description></description>
 
 	<dependencies>
-
 	</dependencies>
 
 
